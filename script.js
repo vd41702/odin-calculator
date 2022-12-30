@@ -34,6 +34,14 @@ for(opBtn of opBtns) {
 
 /* script functions */
 function clear(e) {
+    currentOp = "";
+    firstOperand = 0;
+    secondOperand = 0;
+    outputScreen.innerText = "";
+
+    for(opBtn of opBtns) {
+        opBtn.classList.remove("activeOperation");
+    }
 }
 
 function negate(e) {
