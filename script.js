@@ -11,7 +11,7 @@ opBtns = document.querySelectorAll(".operation");
 
 /* variables necessary for script */
 var currentOp = "";
-var displayedOperand = 0;
+var displayedOperand = null;
 var storedOperand = null;
 var hasDecimal = false;
 
@@ -35,28 +35,94 @@ for(opBtn of opBtns) {
 
 /* script functions */
 function clear(e) {
+    currentOp = "";
+    displayedOperand = null;
+    storedOperand = null;
+    hasDecimal = false;
+    updateScreen();
+
+    for(opBtn of opBtns) {
+        opBtn.classList.remove("activeOperator");
+    }
 }
 
 function negate(e) {
-   
+    //add check for null value
+    displayedOperand *= -1;
+    updateScreen();
 }
 
 function backspace(e) {
+    //check for display length of more than 0;
+    if(outputScreen.innerText.slice(-1) === ".") { //checking for deletion of decimal
+        hasDecimal = false;
+    }
+    outputScreen.innerText = outputScreen.innerText.slice(0,-1);
+    displayedOperand = parseFloat(outputScreen.innerText);
 }
 
 function addDecimal(e) {
+    hasDecimal = true; //not sure if this variable is needed tbh
+    outputScreen.innerText += ".";
 }
 
 function compute(e) {
+    //TODO: need to add div by 0 check, and ensure both operands are valid
+
+    switch (currentOp) {
+        case "+":
+            storedOperand = storedOperand + displayedOperand;
+            break;
+        
+        case "-":
+            storedOperand = storedOperand - displayedOperand;
+            break;
+
+        case "x":
+            storedOperand = storedOperand * displayedOperand;
+            break;
+
+        case "÷":
+            storedOperand = storedOperand + displayedOperand;
+            break;
+    
+        default:
+            break;
+    }
+    //TODO: need to round displayed result
+    outputScreen.innerText = storedOperand;
 }
 
 function appendNum(e) {
+    if(displayedOperand === null) {
+        displayedOperand = parseInt(e.target.innerText);
+    } else {
+        displayedOperand = parseFloat(outputScreen.innerText + e.target.innerText);
+    }
+    updateScreen();
 }
 
 function changeOperation(e) {
+    if(displayedOperand !== null) { 
+        //This means that a number was input, and we are not just switching operation modes
+        compute(e);
+        displayedOperand = null;
+    }
+    currentOp = e.target.innerText; //update operator mode
+    
+    for(opBtn of opBtns) {
+        opBtn.classList.remove("activeOperator");
+    }
+    e.target.classList.toggle("activeOperator");
+
 }
 
 function updateScreen() {
+    if(displayedOperand === null) {
+        outputScreen.innerText = "0";
+    } else {
+        outputScreen.innerText = displayedOperand;
+    }
 }
 
 
