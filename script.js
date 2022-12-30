@@ -11,8 +11,9 @@ opBtns = document.querySelectorAll(".operation");
 
 /* variables necessary for script */
 var currentOp = "";
-var firstOperand = 0;
-var secondOperand = 0;
+var displayedOperand = 0;
+var storedOperand = null;
+var hasDecimal = false;
 
 
 /* event listeners */
@@ -34,30 +35,16 @@ for(opBtn of opBtns) {
 
 /* script functions */
 function clear(e) {
-    currentOp = "";
-    firstOperand = 0;
-    secondOperand = 0;
-    outputScreen.innerText = "0";
-
-    for(opBtn of opBtns) {
-        opBtn.classList.remove("activeOperation");
-    }
 }
 
 function negate(e) {
-    outputScreen.innerText = -1 * parseFloat(outputScreen.innerText);
+   
 }
 
 function backspace(e) {
-    outputScreen.innerText = outputScreen.innerText.slice(0,outputScreen.innerText.length-1);
 }
 
 function addDecimal(e) {
-    if(outputScreen.innerText.includes(".")) {
-        alert("oops! you already have a decimal");
-        return;
-    }
-    outputScreen.innerText += ".";
 }
 
 function compute(e) {
@@ -67,12 +54,9 @@ function appendNum(e) {
 }
 
 function changeOperation(e) {
-    currentOp = e.target.innerText;
-    for(opBtn of opBtns) {
-        opBtn.classList.remove("activeOperation");
-    }
-    e.target.classList.toggle("activeOperation");
-    firstOperand = parseFloat(outputScreen.innerText);
+}
+
+function updateScreen() {
 }
 
 
