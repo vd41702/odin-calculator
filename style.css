@@ -33,6 +33,7 @@
 
 .calcContainer {
     background-color: var(--calc-background-color);
+    border: 1px solid grey;
 }
 
 .output {
@@ -49,7 +50,7 @@
     color: white;
 }
 
-#clear, #negate, #delete, #decimal {
+#clear, #negate, #delete, #decimal, #equals{
     background-color: var(--calc-special-bg-color);
     color: white;
 }
