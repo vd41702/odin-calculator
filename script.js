@@ -47,7 +47,9 @@ function clear(e) {
 }
 
 function negate(e) {
-    //add check for null value
+    if(displayedOperand === null) {
+        return;
+    }
     displayedOperand *= -1;
     updateScreen();
 }
@@ -68,7 +70,11 @@ function addDecimal(e) {
 
 function compute(e) {
     //TODO: need to add div by 0 check, and ensure both operands are valid
-
+    if(storedOperand === null || displayedOperand === null) {
+        storedOperand = displayedOperand;
+        displayedOperand = 0;
+        return;
+    }
     switch (currentOp) {
         case "+":
             storedOperand = storedOperand + displayedOperand;
@@ -83,17 +89,21 @@ function compute(e) {
             break;
 
         case "÷":
-            storedOperand = storedOperand + displayedOperand;
+            if(displayedOperand == 0) {
+                alert("oops! dividing by 0 is not currently supported on this calculator :)");
+                return;
+            }
+            storedOperand = storedOperand / displayedOperand;
             break;
     
         default:
             break;
     }
-    //TODO: need to round displayed result
-    outputScreen.innerText = storedOperand;
+    outputScreen.innerText = round(storedOperand);
 }
 
 function appendNum(e) {
+    
     if(displayedOperand === null) {
         displayedOperand = parseInt(e.target.innerText);
     } else {
@@ -121,8 +131,16 @@ function updateScreen() {
     if(displayedOperand === null) {
         outputScreen.innerText = "0";
     } else {
-        outputScreen.innerText = displayedOperand;
+        outputScreen.innerText = round(displayedOperand);
     }
+}
+
+function round(num) {
+    s = num + "";
+    if(s.length > 15) {
+        s = num.toExponential(5);
+    }
+    return s;
 }
 
 
