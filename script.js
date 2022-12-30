@@ -45,12 +45,19 @@ function clear(e) {
 }
 
 function negate(e) {
+    outputScreen.innerText = -1 * parseFloat(outputScreen.innerText);
 }
 
 function backspace(e) {
+    outputScreen.innerText = outputScreen.innerText.slice(0,outputScreen.innerText.length-1);
 }
 
 function addDecimal() {
+    if(outputScreen.innerText.contains(".")) {
+        alert("oops! you already have a decimal");
+        return;
+    }
+    outputScreen.innerText += ".";
 }
 
 function compute(e) {
