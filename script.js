@@ -69,7 +69,6 @@ function addDecimal(e) {
 }
 
 function compute(e) {
-    //TODO: need to add div by 0 check, and ensure both operands are valid
     if(storedOperand === null || displayedOperand === null) {
         storedOperand = displayedOperand;
         displayedOperand = 0;
@@ -142,10 +141,3 @@ function round(num) {
     }
     return s;
 }
-
-
-
-
-
-
-

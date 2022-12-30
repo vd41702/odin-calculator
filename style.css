@@ -55,6 +55,10 @@
     color: white;
 }
 
+.activeOperator {
+    background-color: #31572c;
+}
+
 html {
     height: 100%;
 }
