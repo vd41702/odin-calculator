@@ -16,14 +16,14 @@ var secondOperand = 0;
 
 
 /* event listeners */
-clearBtn.addEventListener("click", clear());
-negateBtn.addEventListener("click", negate());
-deleteBtn.addEventListener("click", backspace());
-decimalBtn.addEventListener("click", addDecimal());
-equalsBtn.addEventListener("click", compute());
+clearBtn.addEventListener("click", clear);
+negateBtn.addEventListener("click", negate);
+deleteBtn.addEventListener("click", backspace);
+decimalBtn.addEventListener("click", addDecimal);
+equalsBtn.addEventListener("click", compute);
 
 for(numBtn of numberBtns) {
-    numBtn.addEventListener("click", appendNum());
+    numBtn.addEventListener("click", appendNum);
 }
 
 for(opBtn of opBtns) {
@@ -37,7 +37,7 @@ function clear(e) {
     currentOp = "";
     firstOperand = 0;
     secondOperand = 0;
-    outputScreen.innerText = "";
+    outputScreen.innerText = "0";
 
     for(opBtn of opBtns) {
         opBtn.classList.remove("activeOperation");
@@ -52,8 +52,8 @@ function backspace(e) {
     outputScreen.innerText = outputScreen.innerText.slice(0,outputScreen.innerText.length-1);
 }
 
-function addDecimal() {
-    if(outputScreen.innerText.contains(".")) {
+function addDecimal(e) {
+    if(outputScreen.innerText.includes(".")) {
         alert("oops! you already have a decimal");
         return;
     }
@@ -67,6 +67,12 @@ function appendNum(e) {
 }
 
 function changeOperation(e) {
+    currentOp = e.target.innerText;
+    for(opBtn of opBtns) {
+        opBtn.classList.remove("activeOperation");
+    }
+    e.target.classList.toggle("activeOperation");
+    firstOperand = parseFloat(outputScreen.innerText);
 }
 
 
